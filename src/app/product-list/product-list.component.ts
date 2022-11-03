@@ -1,20 +1,32 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { products } from '../products';
+import { PostService } from '../services/post.service';
 
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
-  styleUrls: ['./product-list.component.css']
+  styleUrls: ['./product-list.component.css'],
 })
-export class ProductListComponent {
+export class ProductListComponent implements OnInit {
   products = products;
+  posts: any;
+  constructor(private service: PostService) {}
 
-  share() {
-    window.alert('The product has been shared!');
+  share(name: any) {}
+  ngOnInit() {}
+  getFundDetails(fundname: any) {
+    var displayTxt: any;
+    this.service.getPosts(fundname).subscribe(
+      (response) => {
+        this.posts = response;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 }
-
 
 /*
 Copyright Google LLC. All Rights Reserved.
